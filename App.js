@@ -11,5 +11,6 @@ app.use(express.json()); //work AFTER this line
 CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
+Hello(app);
 Lab5(app);
 app.listen(process.env.PORT || 4000);
