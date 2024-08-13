@@ -1,6 +1,40 @@
-import Database from "../Database/index.js";
+import * as dao from "./dao.js";
+
 export default function CourseRoutes(app) {
-  app.post("/api/courses", (req, res) => {
+
+  const findAllCourses = async (req, res) => {
+    const courses = await dao.findAllCourses();
+    res.json(courses);
+    return;
+  };
+
+  const createCourse = async (req, res) => {
+    const course = await dao.createCourse(req.body);
+    res.json(course);
+  };
+
+  const updateCourse = async (req, res) => {
+    const status = await dao.updateCourse(req.params.courseId, req.body);
+    res.json(status);
+  };
+
+  const deleteCourse = async (req, res) => {
+    const status = await dao.deleteCourse(req.params.courseId);
+    res.json(status);
+  };
+
+  const findCourseById = async (req, res) => {const course = await dao.findCourseById(req.params.courseId);
+    res.json(course);
+ };
+
+  app.post("/api/courses", createCourse);
+  app.get("/api/courses", findAllCourses);
+  app.get("/api/courses/:courseId", findCourseById);
+  app.put("/api/courses/:courseId", updateCourse);
+  app.delete("/api/courses/:courseId", deleteCourse);
+
+
+  /*app.post("/api/courses", (req, res) => {
     const course = { ...req.body,
       _id: new Date().getTime().toString() };
     Database.courses.push(course);
@@ -22,7 +56,7 @@ export default function CourseRoutes(app) {
       c._id === id ? { ...c, ...course } : c
     );
     res.sendStatus(204);
-  });
+  });*/
 
 
 }
