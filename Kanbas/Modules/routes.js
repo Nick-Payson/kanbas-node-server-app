@@ -22,6 +22,7 @@ export default function ModuleRoutes(app) {
   };
 
   const deleteModule = async (req, res) => {
+    //console.log("routes backend delete module id: ".concat(req.params.moduleId));
     const status = await dao.deleteModule(req.params.moduleId);
     res.json(status);
   };
